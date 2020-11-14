@@ -1,5 +1,7 @@
 package facades;
 
+import dto.UserDTO;
+import entities.Hobby;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -42,5 +44,23 @@ public class UserFacade {
         }
         return user;
     }
+    
+    public UserDTO editUser(UserDTO userDTO) {
+        EntityManager em = emf.createEntityManager();
+        User user = em.find(User.class, userDTO.getuName());
+        Hobby hobby = new Hobby(userDTO.getpHobby());
+        hobby.addUser(user);
+
+        try {
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+
+            return new UserDTO(user);
+        } finally {
+            em.close();
+        }
+    }
+    
 
 }
