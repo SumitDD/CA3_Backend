@@ -38,14 +38,12 @@ public class DemoResource {
     
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final ExecutorService ES = Executors.newCachedThreadPool();
-    private static final FacadeExample FACADE = FacadeExample.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
     EntityManager em = emf.createEntityManager();
     private static final UserFacade USERFACADE = UserFacade.getUserFacade(EMF);
 
 
-    Gson gson;
     private static String cachedResponse;
     @Context
     private UriInfo context;
